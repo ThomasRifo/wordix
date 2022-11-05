@@ -12,3 +12,4 @@ Universidad Nacional del Comahue
 # Integrantes del Grupo:
 
 Thomas Maximiliano Rifo - Legajo FAI-4296 - mail: thomasmrifo@gmail.com - Github: ThomasRifo
+Axel Nicolás Maldonado - Legajo FAI-3196 - mail: axel.maldonado@est.fi.uncoma.edu.ar - Github: axelnicomaldonado
