@@ -112,7 +112,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * Escribe un mensaje de bienvenida con el nombre del jugador cuando es invocado.
+ * @param string $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -125,6 +126,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
+ * Verifica que la palabra no contenga letras
+ * @param string $cadena
+ * @return boolean
  * ****COMPLETAR*****
  */
 function esPalabra($cadena)
@@ -141,7 +145,9 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ * Esta función lee una palabra ingresada.
+ * Si tiene más o menos de 5 letras o un número, vuelve a solicitarla.
+ * 
  */
 function leerPalabra5Letras()
 {
@@ -377,4 +383,39 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     ];
 
     return $partida;
+}
+
+/**
+ * Dado un jugador, retorna el índice de su primera partida ganada guardada en el arreglo. Sino retorna -1
+ * @param string $usuario
+ * @param array $coleccionPartidas
+ * @return int
+ */
+function primerPartidaGanada ($usuario, $coleccionPartidas) {
+    /**
+     * echo "Ingrese el nombre del jugador: "
+     * $usuario = trim(fgets(STDIN));
+     * strtolower($usuario);
+     */
+foreach ($coleccionPartidas as $numeroPartida => $partida) {
+    foreach ($partida as $datosPartida => $nombre) {
+        if ($nombre == $usuario && $puntaje != 0) {
+            /** opción 1:
+             * echo "Indice de la primera partida ganada: " .$numeroPartida;
+             * opción 2:
+             * return $numeroPartida;
+             * (o usar otro foreach después del if para verificar si esa partida tiene puntos)
+             */
+        }
+    }
+    if ($nombre != $usuario || $puntaje = 0) {
+        $numeroPartida = -1;
+        /** según opción 1:
+         * echo $numeroPartida;
+         * según opción 2:
+         * return $numeroPartida;
+         */
+    }
+}
+
 }
