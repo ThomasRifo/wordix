@@ -392,29 +392,14 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * @return int
  */
 function primerPartidaGanada ($usuario, $coleccionPartidas) {
-    /**
-     * echo "Ingrese el nombre del jugador: "
-     * $usuario = trim(fgets(STDIN));
-     * strtolower($usuario);
-     */
+strtolower($usuario);
 foreach ($coleccionPartidas as $numeroPartida => $partida) {
-    foreach ($partida as $datosPartida => $nombre) {
-        if ($nombre == $usuario && $puntaje != 0) {
-            /** opción 1:
-             * echo "Indice de la primera partida ganada: " .$numeroPartida;
-             * opción 2:
-             * return $numeroPartida;
-             * (o usar otro foreach después del if para verificar si esa partida tiene puntos)
-             */
+        if ($nombre == $partida["jugador"] && $partida["puntaje"] != 0) {
+              return $numeroPartida;    //revisar
         }
-    }
     if ($nombre != $usuario || $puntaje = 0) {
         $numeroPartida = -1;
-        /** según opción 1:
-         * echo $numeroPartida;
-         * según opción 2:
-         * return $numeroPartida;
-         */
+        return $numeroPartida;
     }
 }
 
