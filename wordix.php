@@ -402,3 +402,33 @@ foreach ($partidasGuardadas as $numeroPartida => $partida) {
         }
     }
 }
+
+/**
+ * Dada una palabra, la agrega a la colección de palabras y retorna la colección actualizada
+ * @param array $coleccionPalabras
+ * @param string $palabraNueva
+ * @return array
+ */
+function agregarPalabra($coleccionPalabras, $palabraNueva){
+    array_push($coleccionPalabras, $palabraNueva);
+    return $coleccionPalabras;
+}
+
+/** Funcion para ordenar alfabéticamente un array
+ * 
+ */
+function cmp($a, $b)
+{
+    return strcmp($a["jugador"], $b["jugador"]);
+}
+
+
+/**
+ * Dado un array, lo ordena por orden alfabético y muestra el array ordenado
+ * @param array $arrayAOrdenar
+ */
+function ordenarArray($arrayAOrdenar){
+    uasort($arrayAOrdenar, 'cmp');
+    print_r($arrayAOrdenar);
+}
+

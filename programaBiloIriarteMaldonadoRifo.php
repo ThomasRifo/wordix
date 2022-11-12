@@ -21,13 +21,31 @@ include_once("wordix.php");
  */
 function cargarColeccionPalabras()
 {
-    $coleccionPalabras = [
-        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "PERRO", "MUNDO", "POZOS", "MANGO", "HOJAS",
-        "HORAS", "PALOS", "TECLA", "PATOS"
-    ];
+    $coleccionPalabras = [];
+    $coleccionPalabras[0] = "MUJER";
+    $coleccionPalabras[1] = "QUESO";
+    $coleccionPalabras[2] = "FUEGO";
+    $coleccionPalabras[3] = "CASAS";
+    $coleccionPalabras[4] = "RASGO";
+    $coleccionPalabras[5] = "GATOS";
+    $coleccionPalabras[6] = "GOTAS";
+    $coleccionPalabras[7] = "HUEVO";
+    $coleccionPalabras[8] = "TINTO";
+    $coleccionPalabras[9] = "NAVES";
+    $coleccionPalabras[10] = "VERDE";
+    $coleccionPalabras[11] = "MELON";
+    $coleccionPalabras[12] = "YUYOS";
+    $coleccionPalabras[13] = "PIANO";
+    $coleccionPalabras[14] = "PISOS";
+    $coleccionPalabras[15] = "PERRO";
+    $coleccionPalabras[16] = "MUNDO";
+    $coleccionPalabras[17] = "POZOS";
+    $coleccionPalabras[18] = "MANGO";
+    $coleccionPalabras[19] = "HOJAS";
+    $coleccionPalabras[20] = "HORAS";
+    $coleccionPalabras[21] = "PALOS";
+    $coleccionPalabras[22] = "TECLA";
+    $coleccionPalabras[23] = "PATOS";
 
     return ($coleccionPalabras);
 }
@@ -187,7 +205,7 @@ function resumenDelugador($nombreDelJugador, $coleccionPartidas){
  //Inicialización de variables: 
 $arregloPalabras = cargarColeccionPalabras();
 $arregloPartidas = cargarPartidas();
-$maximoPalabras = 23;    //REVISAR
+$maximoPalabras = count($arregloPalabras);
 $maximoPartidas = 9;     //REVISAR
 $minimoPartidas = 0;
 $minimoPalabras = 0;
@@ -244,7 +262,9 @@ $nombreJugador = trim(fgets(STDIN));
             break;
         case 7:
             //Agregar una palabra
-            leerPalabra5Letras();
+            $nuevaPalabra = leerPalabra5Letras();
+            $arregloPalabras = agregarPalabra($arregloPalabras, $nuevaPalabra);
+            $maximoPalabras = count($arregloPalabras) - 1;
             break;
         }
     } while ($opcionElegida !=8);
