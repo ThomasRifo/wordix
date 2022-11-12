@@ -134,7 +134,7 @@ function seleccionarOpcion($usuario) {
 /**
  * muestra los datos de una partida de wordix
  * @param int $numDePartida
- * @return array
+ * @return void
  */
 function mostrarPartida($numDePartida){
     //int $i
@@ -151,8 +151,17 @@ function mostrarPartida($numDePartida){
     }
 
 /**
- * muestra el resumen del jugador
+ * retorna el resumen del jugador
+ * @param string $nombreDelJugador
+ * @return array
  */
+function resumenDelugador($nombreDelJugador, $coleccionPartidas){
+    
+
+
+
+    
+}
 
 /* ... COMPLETAR ... */
 
@@ -215,7 +224,6 @@ $nombreJugador = trim(fgets(STDIN));
             //Mostrar una partida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
             mostrarPartida($numeroDeIngreso);
-            //Agregar función mostrarPartida (no definida)
 
             break;
         case 4:
