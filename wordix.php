@@ -402,18 +402,3 @@ foreach ($partidasGuardadas as $numeroPartida => $partida) {
         }
     }
 }
-
-
-/**
- * borrador funcion primerPartidaGanada
- * function primerPartidaGanada ($usuario, $partidasGuardadas) {
-*strtolower($usuario); //Puede que no haga falta
-*foreach ($partidasGuardadas as $numeroPartida => $partida) {
-*        if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
-*              return $numeroPartida;    //revisar
-*        }
-*    if ($usuario != $partida["jugador"] || $partida["puntaje"] = 0) {
-*        $numeroPartida = -1;
-*        return $numeroPartida;
-*    }
- */
