@@ -6,6 +6,7 @@ include_once("wordix.php");
 /**************************************/
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
+/* Iriarte , Jeronimo . FAI-3857 . TUDW . iriartejeronimo7@gmail.com . JeronimoIriarte */
 /* ... COMPLETAR ... */
 
 
@@ -130,6 +131,29 @@ function seleccionarOpcion($usuario) {
     return ($opcion);
 }
 
+/**
+ * muestra los datos de una partida de wordix
+ * @param int $numDePartida
+ * @return array
+ */
+function mostrarPartida($numDePartida){
+    //int $i
+    $partidasGuardadas = cargarPartidas();
+    $i = $numDePartida - 1;
+    echo "\n"; 
+    echo "*****************************************\n";
+    echo "Partida WORDIX ". $numDePartida . ": Palabra ". $partidasGuardadas[$i]["palabraWordix"]."\n";
+    echo "Jugador: ". $partidasGuardadas[$i]["jugador"]."\n";
+    echo "Puntaje: ". $partidasGuardadas[$i]["puntaje"]."\n";
+    echo "intento: ". $partidasGuardadas[$i]["intentos"]."\n";
+    echo "*****************************************\n";
+    echo "\n";
+    }
+
+/**
+ * muestra el resumen del jugador
+ */
+
 /* ... COMPLETAR ... */
 
 
@@ -169,9 +193,10 @@ $indicePartidaGanada = 0;
 
 echo "Ingrese su nombre: ";
 $nombreJugador = trim(fgets(STDIN));
-$opcionElegida = seleccionarOpcion($nombreJugador);
 
     do {    
+        $opcionElegida = seleccionarOpcion($nombreJugador);
+
      switch ($opcionElegida) {
         case 1: 
             //Jugar con palabra elegida
@@ -189,6 +214,7 @@ $opcionElegida = seleccionarOpcion($nombreJugador);
         case 3: 
             //Mostrar una partida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
+            mostrarPartida($numeroDeIngreso);
             //Agregar función mostrarPartida (no definida)
 
             break;
@@ -202,7 +228,7 @@ $opcionElegida = seleccionarOpcion($nombreJugador);
             break;
         case 5:
             //Mostrar resumen de un jugador
-
+            
             break;
         case 6:
             //Mostrar listado de partidas ordenadas por jugador y palabra
