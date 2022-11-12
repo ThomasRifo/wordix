@@ -32,6 +32,7 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function solicitarNumeroEntre($min, $max)
 {
     //int $numero
+    echo "Ingrese un número entre ".$min. " y " .$max. ": ";
     $numero = trim(fgets(STDIN));
     while (!is_int($numero) && !($numero >= $min && $numero <= $max)) {
         echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
@@ -389,18 +390,30 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * Dado un jugador, retorna el índice de su primera partida ganada guardada en el arreglo. Sino retorna -1
  * @param string $usuario
  * @param array $coleccionPartidas
- * @return int
+ * @return int $numeroPartida
  */
-function primerPartidaGanada ($usuario, $coleccionPartidas) {
-strtolower($usuario);
-foreach ($coleccionPartidas as $numeroPartida => $partida) {
-        if ($nombre == $partida["jugador"] && $partida["puntaje"] != 0) {
+function primerPartidaGanada ($usuario, $partidasGuardadas) {
+foreach ($partidasGuardadas as $numeroPartida => $partida) {
+        if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
               return $numeroPartida;    //revisar
+        } else {
+            $numeroPartida = -1;
+            return $numeroPartida;
         }
-    if ($nombre != $usuario || $puntaje = 0) {
-        $numeroPartida = -1;
-        return $numeroPartida;
     }
 }
 
-}
+
+/**
+ * borrador funcion primerPartidaGanada
+ * function primerPartidaGanada ($usuario, $partidasGuardadas) {
+*strtolower($usuario); //Puede que no haga falta
+*foreach ($partidasGuardadas as $numeroPartida => $partida) {
+*        if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
+*              return $numeroPartida;    //revisar
+*        }
+*    if ($usuario != $partida["jugador"] || $partida["puntaje"] = 0) {
+*        $numeroPartida = -1;
+*        return $numeroPartida;
+*    }
+ */
