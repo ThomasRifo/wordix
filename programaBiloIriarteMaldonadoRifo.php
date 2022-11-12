@@ -16,7 +16,7 @@ include_once("wordix.php");
 
 /**
  * Obtiene una colección de palabras
- * @return array
+ * @return array $coleccionPalabras
  */
 function cargarColeccionPalabras()
 {
@@ -33,7 +33,7 @@ function cargarColeccionPalabras()
 
 /**
  * Obtiene una colección de partidas
- * @return array
+ * @return array $coleccionPartidas
  */
 function cargarPartidas() {
     $coleccionPartidas = [];
@@ -99,7 +99,35 @@ function cargarPartidas() {
         "puntaje" => 8,
     ];
 
+    return ($coleccionPartidas);
+}
 
+/**
+ * La función muestra un menú de opciones que el usuario puede seleccionar.
+ * @param string $usuario
+ * @return int $opcion
+ */
+
+function seleccionarOpcion($usuario) {
+    echo "Bienvenido ".$usuario. ", seleccione una opción del 1 al 8: \n";
+    echo "1: Jugar con palabra elegida. \n";
+    echo "2: Jugar con palabra aleatoria. \n";
+    echo "3: Mostrar una partida. \n";
+    echo "4: Mostrar la primer partida ganada de un jugador. \n";
+    echo "5: Mostrar el resumen de un jugador. \n";
+    echo "6: Mostrar listado de partidas ordenadas por jugador y palabra. \n";
+    echo "7: Agregar una palabra a la colección de Wordix. \n";
+    echo "8: Salir de wordix. \n";
+    echo "Escriba el número de opción: ";
+    $opcion = trim(fgets(STDIN));
+    if ($opcion > 8 || $opcion <=0) {
+        do {
+            echo "Por favor, seleccione una opción válida: ";
+            $opcion = trim(fgets(STDIN));
+        } while ($opcion>8 || $opcion<=0);
+        
+    }
+    return ($opcion);
 }
 
 /* ... COMPLETAR ... */
@@ -110,43 +138,66 @@ function cargarPartidas() {
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
-//Declaración de variables:
+/** Declaración de variables:
+* @param string $nombreJugador
+* @param int $numeroDeIngreso
+* @param string $palabraParaJugar
+* @param int $maximoPalabras
+* @param int $minimoPalabras
+* @param int $maximoPartidas
+* @param int $minimoPartidas
+* @param int $indicePartidaGanada
+* @param string $jugadorBuscado
+* @param array arregloPalabras
+* @param array arregloPartidas
+*/
+ //Inicialización de variables: 
+$arregloPalabras = cargarColeccionPalabras();
+$arregloPartidas = cargarPartidas();
+$maximoPalabras = 23;    //REVISAR
+$maximoPartidas = 9;     //REVISAR
+$minimoPartidas = 0;
+$minimoPalabras = 0;
+$opcionElegida = 0;   //No se ejecutan en el switch
 
-
-//Inicialización de variables:
-
+$indicePartidaGanada = 0;
 
 //Proceso:
-
-$partida = jugarWordix("MELON", strtolower("MaJo"));
+//$partida = jugarWordix("MELON", strtolower("MaJo"));
 //print_r($partida);
 //imprimirResultado($partida);
 
+echo "Ingrese su nombre: ";
+$nombreJugador = trim(fgets(STDIN));
+$opcionElegida = seleccionarOpcion($nombreJugador);
 
-
-/*
-do {
-    $opcion = ...;
-
-    
-    switch ($opcion) {
+    do {    
+     switch ($opcionElegida) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
             //Jugar con palabra elegida
+            $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+            $palabraParaJugar = $arregloPalabras [$numeroDeIngreso];
+            $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
 
             break;
         case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-            //Jugar con palabra aleatoria
+            //Jugar con palabra aleatoria. array_rand() obtiene un elemento de un array de forma aleatoria
+            $palabraParaJugar =  $arregloPalabras[array_rand($coleccionPalabras)];
+            $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
 
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
             //Mostrar una partida
+            $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
+            //Agregar función mostrarPartida (no definida)
 
             break;
         case 4:
-            //Mostrar la primera partida ganadora (punto 8)
+            //Mostrar la primera partida ganadora de un jugador
+            echo "Ingrese el nombre del jugador: ";
+            $jugadorBuscado = trim(fgets(STDIN));
+            $indicePartidaGanada = primerPartidaGanada (strtolower($jugadorBuscado), $arregloPartidas);
+            echo "La primer partida ganada por " .$jugadorBuscado. " se encuentra en el índice ".$indicePartidaGanada;
 
             break;
         case 5:
@@ -159,10 +210,8 @@ do {
             break;
         case 7:
             //Agregar una palabra
-
+            leerPalabra5Letras();
             break;
-    }
-} while ($opcion !=8);
-*/
-
+        }
+    } while ($opcionElegida !=8);
  //La instrucción de switch corresponde a la estructura de control alternativa if/elseif o SI/OTRO-SI vista en la teoría
