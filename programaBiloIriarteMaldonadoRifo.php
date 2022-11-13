@@ -7,6 +7,7 @@ include_once("wordix.php");
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
 /* Iriarte , Jeronimo . FAI-3857 . TUDW . iriartejeronimo7@gmail.com . JeronimoIriarte */
+// Maldonado, Axel Nicolás. FAI-3196. TUDW. axel.maldonado@est.fi.uncoma.edu.ar . axelnicomaldonado
 /* ... COMPLETAR ... */
 
 
@@ -128,7 +129,9 @@ function cargarPartidas() {
  */
 
 function seleccionarOpcion($usuario) {
-    echo "Bienvenido ".$usuario. ", seleccione una opción del 1 al 8: \n";
+    echo "\n";
+    echo "\n***************************************************\n";
+    echo "Bienvenido/a ".$usuario. ", seleccione una opción del 1 al 8: \n";
     echo "1: Jugar con palabra elegida. \n";
     echo "2: Jugar con palabra aleatoria. \n";
     echo "3: Mostrar una partida. \n";
@@ -209,7 +212,7 @@ $maximoPalabras = count($arregloPalabras);
 $maximoPartidas = 9;     //REVISAR
 $minimoPartidas = 0;
 $minimoPalabras = 0;
-$opcionElegida = 0;   //No se ejecutan en el switch
+$opcionElegida = 0;
 
 $indicePartidaGanada = 0;
 
@@ -234,7 +237,7 @@ $nombreJugador = trim(fgets(STDIN));
             break;
         case 2: 
             //Jugar con palabra aleatoria. array_rand() obtiene un elemento de un array de forma aleatoria
-            $palabraParaJugar =  $arregloPalabras[array_rand($coleccionPalabras)];
+            $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
             $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
 
             break;
@@ -258,7 +261,7 @@ $nombreJugador = trim(fgets(STDIN));
             break;
         case 6:
             //Mostrar listado de partidas ordenadas por jugador y palabra
-
+            $arregloPartidas = ordenarArray($arregloPartidas);
             break;
         case 7:
             //Agregar una palabra
