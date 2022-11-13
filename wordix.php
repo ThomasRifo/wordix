@@ -395,9 +395,12 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 function primerPartidaGanada ($usuario, $partidasGuardadas) {
     foreach ($partidasGuardadas as $numeroPartida => $partida) {
             if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
-                  return $numeroPartida;    //revisar
+                return $numeroPartida;
+            } else {
+                $numeroPartida = -1;
             }
         }
+        return $numeroPartida;
     }
 
 /**
