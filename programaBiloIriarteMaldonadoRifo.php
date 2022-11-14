@@ -63,64 +63,170 @@ function cargarPartidas() {
         "palabraWordix" => "GATOS",
         "jugador" => "jorge",
         "intentos" => 2,
-        "puntaje" => 15,
+        "puntaje" => 5,
     ];
     $coleccionPartidas[1] = [
         "palabraWordix" => "MANGO",
         "jugador" => "axel",
         "intentos" => 3,
-        "puntaje" => 13,
+        "puntaje" => 4,
     ];
     $coleccionPartidas[2] = [
         "palabraWordix" => "HOJAS",
         "jugador" => "fausto",
         "intentos" => 4,
-        "puntaje" => 12,
+        "puntaje" => 3,
     ];
     $coleccionPartidas[3] = [
         "palabraWordix" => "TECLA",
         "jugador" => "axel",
         "intentos" => 6,
-        "puntaje" => 0,
+        "puntaje" => 1,
     ];
     $coleccionPartidas[4] = [
         "palabraWordix" => "CASAS",
         "jugador" => "nico",
         "intentos" => 5,
-        "puntaje" => 12,
+        "puntaje" => 2,
     ];
     $coleccionPartidas[5] = [
         "palabraWordix" => "NAVES",
         "jugador" => "jero",
         "intentos" => 4,
-        "puntaje" => 14,
+        "puntaje" => 3,
     ];
     $coleccionPartidas[6] = [
         "palabraWordix" => "MUNDO",
         "jugador" => "hugo",
         "intentos" => 6,
-        "puntaje" => 0,
+        "puntaje" => 1,
     ];
     $coleccionPartidas[7] = [
         "palabraWordix" => "RASGO",
         "jugador" => "thomas",
         "intentos" => 3,
-        "puntaje" => 14,
+        "puntaje" => 4,
     ];
     $coleccionPartidas[8] = [
         "palabraWordix" => "POZOS",
         "jugador" => "fausto",
         "intentos" => 2,
-        "puntaje" => 16,
+        "puntaje" => 5,
     ];
     $coleccionPartidas[9] = [
         "palabraWordix" => "FUEGO",
         "jugador" => "jorge",
         "intentos" => 6,
-        "puntaje" => 8,
+        "puntaje" => 1,
     ];
 
     return ($coleccionPartidas);
+}
+
+/**
+ * 
+ */
+function resumenJugador(){
+    $partidasJugador = ["jugador"];
+    $partidasJugador["jorge"] = [
+        "jugador" => "jorge",
+        "partidas" => 2,
+        "puntajeTotal" => 6,
+        "victorias" => 2,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 1,
+        "intento3" => 0,
+        "intento4" => 0,
+        "intento5" => 1,
+        "intento6" => 0,
+        
+    ];
+    $partidasJugador["axel"] = [
+        "jugador" => "axel",
+        "partidas" => 2,
+        "puntajeTotal" => 5,
+        "victorias" => 2,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 1,
+        "intento4" => 0,
+        "intento5" => 0,
+        "intento6" => 1,
+        
+    ];
+    $partidasJugador["fausto"] = [
+        "jugador" => "fausto",
+        "partidas" => 2,
+        "puntajeTotal" => 8,
+        "victorias" => 2,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 1,
+        "intento3" => 0,
+        "intento4" => 1,
+        "intento5" => 0,
+        "intento6" => 0,
+        
+    ];
+    $partidasJugador["nico"] = [
+        "jugador" => "nico",
+        "partidas" => 1,
+        "puntajeTotal" => 2,
+        "victorias" => 1,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 0,
+        "intento4" => 0,
+        "intento5" => 1,
+        "intento6" => 0,
+    ];
+    $partidasJugador["jero"] = [
+        "jugador" => "jero",
+        "partidas" => 1,
+        "puntajeTotal" => 3,
+        "victorias" => 1,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 0,
+        "intento4" => 1,
+        "intento5" => 0,
+        "intento6" => 0,
+        
+    ];
+    $partidasJugador["hugo"] = [
+        "jugador" => "hugo",
+        "partidas" => 1,
+        "puntajeTotal" => 1,
+        "victorias" => 1,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 0,
+        "intento4" => 0,
+        "intento5" => 0,
+        "intento6" => 1,
+        
+    ];
+    $partidasJugador["thomas"] = [
+        "jugador" => "thomas",
+        "partidas" => 1,
+        "puntajeTotal" => 4,
+        "victorias" => 1,
+        "porcentajeVictorias" => 100,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 1,
+        "intento4" => 0,
+        "intento5" => 0,
+        "intento6" => 0,
+        
+    ];
+
+    
 }
 
 /**
@@ -153,21 +259,38 @@ function seleccionarOpcion($usuario) {
     return ($opcion);
 }
 
-/**
- * Le pide al usuario que ingrese una palabra de 5 letras
- * y retorna la palabra
- * @return string
+/** Funcion para ordenar alfabéticamente el array por jugador
+ * 
  */
-function pidePalabra(){
-    /* string $palabra */
-    /* int $n */
-    $palabra = trim(fgets(STDIN));
-    $n = strlen($palabra);
-    if ($n != 5){
-        $palabra = "error";
+function cmp($a, $b)
+{
+    if ($a["jugador"] == $b["jugador"]) {
+        return 0;
     }
-    return($palabra);
+    return ($a["jugador"] < $b["jugador"]) ? -1 : 1;
 }
+
+/** Funcion para ordenar alfabéticamente el array por palabra
+ * 
+ */
+function cmp2($a, $b)
+{
+    if ($a["palabraWordix"] == $b["palabraWordix"]) {
+        return 0;
+    }
+    return ($a["palabraWordix"] < $b["palabraWordix"]) ? -1 : 1;
+}
+
+/**
+ * Dado un array, lo ordena por orden alfabético y muestra el array ordenado
+ * @param array $arrayAOrdenar
+ */
+function ordenarArray($arrayAOrdenar){
+    uasort($arrayAOrdenar, 'cmp2');
+    uasort($arrayAOrdenar, 'cmp');
+    print_r($arrayAOrdenar);
+}
+
 
 /**
  * muestra los datos de una partida de wordix
