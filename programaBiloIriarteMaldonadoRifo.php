@@ -237,8 +237,7 @@ function solicitarJugador(){
     if ($resultado == 0){
         $usuario = strtolower($usuario);
     } elseif ($resultado == 1){
-        /* a revisar que conviene retornar */
-        $usuario = "usuario no valido";
+        $usuario = "Nombre no valido";
     }
     return($usuario);
 }
@@ -281,9 +280,10 @@ $indicePartidaGanada = 0;
 //print_r($partida);
 //imprimirResultado($partida);
 
-echo "Ingrese su nombre: ";
-$nombreJugador = trim(fgets(STDIN));
-
+do{
+    echo "Ingrese su nombre: ";
+    $nombreJugador = solicitarJugador();
+} while ($nombreJugador == "Nombre no valido");
     do {    
         $opcionElegida = seleccionarOpcion($nombreJugador);
 
