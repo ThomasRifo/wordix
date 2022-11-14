@@ -336,6 +336,7 @@ function obtenerPuntajeWordix($intentos) {
     if($intentos != 0){
         for($i = 6; $i >= $intentos; $i--){
             $puntaje = 7 - $i;
+            //if()
         }
     } else {
         $puntaje = 0;
