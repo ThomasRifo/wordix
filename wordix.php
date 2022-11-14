@@ -426,15 +426,29 @@ function agregarPalabra($coleccionPalabras, $palabraNueva){
  */
 function cmp($a, $b)
 {
-    return strcmp($a["jugador"], $b["jugador"]);
+    if ($a["jugador"] == $b["jugador"]) {
+        return 0;
+    }
+    return ($a["jugador"] < $b["jugador"]) ? -1 : 1;
 }
 
+/** Funcion para ordenar alfabéticamente un array
+ * 
+ */
+function cmp2($a, $b)
+{
+    if ($a["palabraWordix"] == $b["palabraWordix"]) {
+        return 0;
+    }
+    return ($a["palabraWordix"] < $b["palabraWordix"]) ? -1 : 1;
+}
 
 /**
  * Dado un array, lo ordena por orden alfabético y muestra el array ordenado
  * @param array $arrayAOrdenar
  */
 function ordenarArray($arrayAOrdenar){
+    uasort($arrayAOrdenar, 'cmp2');
     uasort($arrayAOrdenar, 'cmp');
     print_r($arrayAOrdenar);
 }

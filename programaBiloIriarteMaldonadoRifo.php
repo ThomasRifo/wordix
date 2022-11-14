@@ -171,15 +171,14 @@ function pidePalabra(){
 
 /**
  * muestra los datos de una partida de wordix
- * @param int $partida
+ * @param array $partida
+ * @param int $partidaNumero
  * @return void
  */
-function mostrarPartida($partida){
-    //int $i
-    $i = $partida;
+function mostrarPartida($partida, $partidaNumero){
     echo "\n"; 
     echo "*****************************************\n";
-    echo "Partida WORDIX ". $i . ": Palabra ". $partida["palabraWordix"]."\n";
+    echo "Partida WORDIX ". $partidaNumero . ": Palabra ". $partida["palabraWordix"]."\n";
     echo "Jugador: ". $partida["jugador"]."\n";
     echo "Puntaje: ". $partida["puntaje"]."\n";
     echo "intento: ". $partida["intentos"]."\n";
@@ -303,7 +302,7 @@ do{
         case 3: 
             //Mostrar una partida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
-            mostrarPartida($arregloPartidas[$numeroDeIngreso]);
+            mostrarPartida($arregloPartidas[$numeroDeIngreso], $numeroDeIngreso);
 
             break;
         case 4:
@@ -311,8 +310,13 @@ do{
             echo "Ingrese el nombre del jugador: ";
             $jugadorBuscado = trim(fgets(STDIN));
             $indicePartidaGanada = primerPartidaGanada (strtolower($jugadorBuscado), $arregloPartidas);
-            echo "La primer partida ganada por " .$jugadorBuscado. " se encuentra en el índice ".$indicePartidaGanada;
-
+            if ($indicePartidaGanada != -1) {
+                //se le suma 1 para que no muestre la partida del índice anterior
+                $indicePartidaGanada = $indicePartidaGanada+1;
+                mostrarPartida ($arregloPartidas, $indicePartidaGanada);
+            } else {
+                echo "El jugador " .$jugadorBuscado. " no ganó ninguna partida o no existe el jugador.";
+                }
             break;
         case 5:
             //Mostrar resumen de un jugador
@@ -320,13 +324,13 @@ do{
             break;
         case 6:
             //Mostrar listado de partidas ordenadas por jugador y palabra
-            $arregloPartidas = ordenarArray($arregloPartidas);
+            $partidasOrdenadas = ordenarArray($arregloPartidas);
             break;
         case 7:
             //Agregar una palabra
             $nuevaPalabra = leerPalabra5Letras();
             $arregloPalabras = agregarPalabra($arregloPalabras, $nuevaPalabra);
-            $maximoPalabras = count($arregloPalabras) - 1;
+            $maximoPalabras = count($arregloPalabras);
             break;
         }
     } while ($opcionElegida !=8);
