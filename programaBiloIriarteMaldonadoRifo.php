@@ -195,9 +195,7 @@ function mostrarPartida($numDePartida){
  */
 function resumenDelugador($nombreDelJugador, $coleccionPartidas){
     
-
-
-
+/* ... COMPLETAR ... */
     
 }
 
