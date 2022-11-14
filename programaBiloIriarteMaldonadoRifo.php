@@ -9,7 +9,7 @@ include_once("wordix.php");
 /* Iriarte , Jeronimo . FAI-3857 . TUDW . iriartejeronimo7@gmail.com . JeronimoIriarte */
 /* Biló , Fausto . FAI-3616 . TUDW . fausto.bilo@est.fi.uncoma.edu.ar . IgnacioCooper47 */
 /* Maldonado, Axel Nicolás. FAI-3196. TUDW. axel.maldonado@est.fi.uncoma.edu.ar . axelnicomaldonado */
-/* ... COMPLETAR ... */
+/* Rifo, Thomas Maximiliano. FAI-4296. TUDW. thomas.rifo@fi.uncoma.edu.ar. ThomasRifo */
 
 
 
@@ -171,19 +171,18 @@ function pidePalabra(){
 
 /**
  * muestra los datos de una partida de wordix
- * @param int $numDePartida
+ * @param int $partida
  * @return void
  */
-function mostrarPartida($numDePartida){
+function mostrarPartida($partida){
     //int $i
-    $partidasGuardadas = cargarPartidas();
-    $i = $numDePartida - 1;
+    $i = $partida;
     echo "\n"; 
     echo "*****************************************\n";
-    echo "Partida WORDIX ". $numDePartida . ": Palabra ". $partidasGuardadas[$i]["palabraWordix"]."\n";
-    echo "Jugador: ". $partidasGuardadas[$i]["jugador"]."\n";
-    echo "Puntaje: ". $partidasGuardadas[$i]["puntaje"]."\n";
-    echo "intento: ". $partidasGuardadas[$i]["intentos"]."\n";
+    echo "Partida WORDIX ". $i . ": Palabra ". $partida["palabraWordix"]."\n";
+    echo "Jugador: ". $partida["jugador"]."\n";
+    echo "Puntaje: ". $partida["puntaje"]."\n";
+    echo "intento: ". $partida["intentos"]."\n";
     echo "*****************************************\n";
     echo "\n";
     }
@@ -306,7 +305,7 @@ do{
         case 3: 
             //Mostrar una partida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
-            mostrarPartida($numeroDeIngreso);
+            mostrarPartida($arregloPartidas[$numeroDeIngreso]);
 
             break;
         case 4:
