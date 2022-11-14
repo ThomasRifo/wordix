@@ -393,15 +393,15 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * @return int $numeroPartida
  */
 function primerPartidaGanada ($usuario, $partidasGuardadas) {
-foreach ($partidasGuardadas as $numeroPartida => $partida) {
-        if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
-              return $numeroPartida;    //revisar
-        } else {
-            $numeroPartida = -1;
-            return $numeroPartida;
+    foreach ($partidasGuardadas as $numeroPartida => $partida) {
+            if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
+                return $numeroPartida;
+            } else {
+                $numeroPartida = -1;
+            }
         }
+        return $numeroPartida;
     }
-}
 
 /**
  * Dada una palabra, la agrega a la colección de palabras y retorna la colección actualizada
