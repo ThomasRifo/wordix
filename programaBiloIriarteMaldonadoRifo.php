@@ -312,8 +312,8 @@ do{
             $indicePartidaGanada = primerPartidaGanada (strtolower($jugadorBuscado), $arregloPartidas);
             if ($indicePartidaGanada != -1) {
                 //se le suma 1 para que no muestre la partida del índice anterior
-                $indicePartidaGanada = $indicePartidaGanada+1;
-                mostrarPartida ($arregloPartidas, $indicePartidaGanada);
+                $indicePartidaGanada = $indicePartidaGanada;
+                mostrarPartida ($arregloPartidas[$indicePartidaGanada], $indicePartidaGanada);
             } else {
                 echo "El jugador " .$jugadorBuscado. " no ganó ninguna partida o no existe el jugador.";
                 }
