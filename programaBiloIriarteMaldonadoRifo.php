@@ -7,6 +7,7 @@ include_once("wordix.php");
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
 /* Iriarte , Jeronimo . FAI-3857 . TUDW . iriartejeronimo7@gmail.com . JeronimoIriarte */
+/* Biló , Fausto . FAI-3616 . TUDW . fausto.bilo@est.fi.uncoma.edu.ar . IgnacioCooper47 */
 /* ... COMPLETAR ... */
 
 
@@ -150,6 +151,22 @@ function seleccionarOpcion($usuario) {
 }
 
 /**
+ * Le pide al usuario que ingrese una palabra de 5 letras
+ * y retorna la palabra
+ * @return string
+ */
+function pidePalabra(){
+    /* string $palabra */
+    /* int $n */
+    $palabra = trim(fgets(STDIN));
+    $n = strlen($palabra);
+    if ($n != 5){
+        $palabra = "error";
+    }
+    return($palabra);
+}
+
+/**
  * muestra los datos de una partida de wordix
  * @param int $numDePartida
  * @return void
@@ -180,6 +197,49 @@ function resumenDelugador($nombreDelJugador, $coleccionPartidas){
 
     
 }
+
+/**
+ * Solicita un nombre al usuario y lo retorna en minusculas,
+ * se asegura que el nombre comience con una letra.
+ * @return string
+ */
+function solicitarJugador(){
+    /* string $usuario */
+    /* int $resultado */
+    $usuario = trim(fgets(STDIN));
+    /* Aca se analiza si el primer caracter del string es un numero */
+    if (strncmp ($usuario, "1", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "2", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "3", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "4", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "5", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "6", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "7", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "8", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "9", 1) === 0){
+        $resultado = 1;
+    } elseif (strncmp ($usuario, "0", 1) === 0){
+        $resultado = 1;
+    } else {
+        $resultado = 0;
+    }
+    if ($resultado == 0){
+        $usuario = strtolower($usuario);
+    } elseif ($resultado == 1){
+        /* a revisar que conviene retornar */
+        $usuario = "usuario no valido";
+    }
+    return($usuario);
+}
+
 
 /* ... COMPLETAR ... */
 
