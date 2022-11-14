@@ -235,8 +235,7 @@ function solicitarJugador(){
     if ($resultado == 0){
         $usuario = strtolower($usuario);
     } elseif ($resultado == 1){
-        /* a revisar que conviene retornar */
-        $usuario = "usuario no valido";
+        $usuario = "Nombre no valido";
     }
     return($usuario);
 }
@@ -267,9 +266,9 @@ function solicitarJugador(){
 $arregloPalabras = cargarColeccionPalabras();
 $arregloPartidas = cargarPartidas();
 $maximoPalabras = count($arregloPalabras);
-$maximoPartidas = 9;     //REVISAR
-$minimoPartidas = 0;
-$minimoPalabras = 0;
+$maximoPartidas = count($arregloPartidas);     //REVISAR
+$minimoPartidas = 1;
+$minimoPalabras = 1;
 $opcionElegida = 0;
 
 $indicePartidaGanada = 0;
@@ -279,9 +278,10 @@ $indicePartidaGanada = 0;
 //print_r($partida);
 //imprimirResultado($partida);
 
-echo "Ingrese su nombre: ";
-$nombreJugador = trim(fgets(STDIN));
-
+do{
+    echo "Ingrese su nombre: ";
+    $nombreJugador = solicitarJugador();
+} while ($nombreJugador == "Nombre no valido");
     do {    
         $opcionElegida = seleccionarOpcion($nombreJugador);
 
@@ -289,15 +289,17 @@ $nombreJugador = trim(fgets(STDIN));
         case 1: 
             //Jugar con palabra elegida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-            $palabraParaJugar = $arregloPalabras [$numeroDeIngreso];
+            $palabraParaJugar = $arregloPalabras [($numeroDeIngreso - 1)];
             $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
-
+            $arregloPartidas [($maximoPartidas + 1)] = $partida;
+            $maximoPartidas = count($arregloPartidas);
             break;
         case 2: 
             //Jugar con palabra aleatoria. array_rand() obtiene un elemento de un array de forma aleatoria
             $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
             $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
-
+            $arregloPartidas [($maximoPartidas + 1)] = $partida;
+            $maximoPartidas = count($arregloPartidas);
             break;
         case 3: 
             //Mostrar una partida
