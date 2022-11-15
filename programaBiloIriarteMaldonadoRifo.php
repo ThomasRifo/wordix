@@ -96,18 +96,9 @@ function seleccionarOpcion() {
     echo "6: Mostrar listado de partidas ordenadas por jugador y palabra. \n";
     echo "7: Agregar una palabra a la colección de Wordix. \n";
     echo "8: Salir de wordix. \n";
-    echo "Escriba el número de opción: ";
-    $opcion = trim(fgets(STDIN));
-    if ($opcion > 8 || $opcion <=0) {
-        do {
-            echo "Por favor, seleccione una opción válida: ";
-            $opcion = trim(fgets(STDIN));
-        } while ($opcion>8 || $opcion<=0);
-        
-    }
+    $opcion = solicitarNumeroEntre(1, 8);
     return ($opcion);
 }
-
 
 /**
  * muestra los datos de una partida de wordix
@@ -243,13 +234,8 @@ $maximoPartidas = count($arregloPartidas);     //REVISAR
 $minimoPartidas = 1;
 $minimoPalabras = 1;
 $opcionElegida = 0;
-
 $indicePartidaGanada = 0;
 
-//Proceso:
-//$partida = jugarWordix("MELON", strtolower("MaJo"));
-//print_r($partida);
-//imprimirResultado($partida);
 
 
     do {    
@@ -292,7 +278,6 @@ $indicePartidaGanada = 0;
             $jugadorBuscado = trim(fgets(STDIN));
             $indicePartidaGanada = primerPartidaGanada (strtolower($jugadorBuscado), $arregloPartidas);
             if ($indicePartidaGanada != -1) {
-                //se le suma 1 para que no muestre la partida del índice anterior
                 mostrarPartida($arregloPartidas[$indicePartidaGanada], $indicePartidaGanada);
             } else {
                 echo "El jugador " .$jugadorBuscado. " no ganó ninguna partida o no existe el jugador.";
