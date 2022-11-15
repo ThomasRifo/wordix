@@ -27,7 +27,10 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ * Solicita que se ingrese un número que esté entre dos números ingresados por parámetro
+ * @param int $min
+ * @param int $max
+ * @return int $numero
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -127,10 +130,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * Verifica que la palabra no contenga letras
+ * Verifica que todos los caracteres de una palabra sean letras.
  * @param string $cadena
- * @return boolean
- * ****COMPLETAR*****
+ * @return boolean $esLetra
  */
 function esPalabra($cadena)
 {
@@ -148,7 +150,7 @@ function esPalabra($cadena)
 /**
  * Esta función lee una palabra ingresada.
  * Si tiene más o menos de 5 letras o un número, vuelve a solicitarla.
- * 
+ * @return string $palabra
  */
 function leerPalabra5Letras()
 {
