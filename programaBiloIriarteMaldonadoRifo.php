@@ -337,30 +337,6 @@ $indicePartidaGanada = 0;
             $arregloPartidas [($maximoPartidas)] = $partida;
             $maximoPartidas = count($arregloPartidas);
 
-            //OTRA OPCION, MISMO RESULTADO
-
-            /* -------------------DESDE ACA-----------------
-            $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-            $palabraParaJugar = $arregloPalabras[($numeroDeIngreso - 1)];
-            $palabraUtilizada = elegirOtraPalabra(strtolower($nombreJugador), $palabraParaJugar, $arregloPartidas);
-
-            -----------------HASTA ACA, CODIGO VIEJO---------
-
-            while($palabraUtilizada){
-                echo "\nUsted ya jugó con la palabra " .$palabraParaJugar. ". Por favor, elija otra.\n";
-                $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-                $palabraParaJugar = $arregloPalabras[($numeroDeIngreso - 1)];
-                $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
-            }  
-            $partida = jugarWordix($palabraParaJugar, $nombreJugador);
-            $arregloPartidas [($maximoPartidas)] = $partida;
-            $maximoPartidas = count($arregloPartidas);
-            }
-
-            */
-            //$partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
-            //$arregloPartidas [($maximoPartidas)] = $partida;
-            //$maximoPartidas = count($arregloPartidas);
             break;
         case 2: 
             //Jugar con palabra aleatoria. array_rand() obtiene un elemento de un array de forma aleatoria
@@ -370,14 +346,15 @@ $indicePartidaGanada = 0;
             } while ($nombreJugador == "Nombre no valido");
             $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
             $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
-            while($palabraUtilizada){
-                echo "\nUsted ya jugó con la palabra " .$palabraParaJugar. ". Por favor, elija otra.\n";
-                $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-                $palabraParaJugar = $arregloPalabras [array_rand($arregloPalabras)];
+            do{
+                $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
                 $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
-            }
+                if($palabraUtilizada){
+                    $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
+                }
+            } while($palabraUtilizada);
             $partida = jugarWordix($palabraParaJugar, $nombreJugador);
-            $arregloPartidas[$maximoPartidas] = $partida;
+            $arregloPartidas [($maximoPartidas)] = $partida;
             $maximoPartidas = count($arregloPartidas);
             break;
         case 3: 
