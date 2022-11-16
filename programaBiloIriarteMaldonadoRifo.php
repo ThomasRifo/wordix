@@ -137,7 +137,7 @@ function resumenDelugador($nombreDelJugador, $coleccionPartidas){
  * se asegura que el nombre comience con una letra.
  * @return string
  */
-function validarJugador(){
+function solicitarJugador(){
     /* string $usuario */
     /* int $resultado */
     $usuario = trim(fgets(STDIN));
@@ -168,7 +168,7 @@ function validarJugador(){
     if ($resultado == 0){
         $usuario = strtolower($usuario);
     } elseif ($resultado == 1){
-        $usuario = "Nombre no valido";
+        $usuario = "0";
     }
     return($usuario);
 }
@@ -179,20 +179,12 @@ function validarJugador(){
 function cmp($a, $b)
 {
     if ($a["jugador"] == $b["jugador"]) {
-        return 0;
+        if ($a["palabraWordix"] == $b["palabraWordix"]) {
+            return 0;
+        }
+        return ($a["palabraWordix"] < $b["palabraWordix"]) ? -1 : 1;
     }
     return ($a["jugador"] < $b["jugador"]) ? -1 : 1;
-}
-
-/** Funcion para ordenar alfabéticamente el array por palabra
- * 
- */
-function cmp2($a, $b)
-{
-    if ($a["palabraWordix"] == $b["palabraWordix"]) {
-        return 0;
-    }
-    return ($a["palabraWordix"] < $b["palabraWordix"]) ? -1 : 1;
 }
 
 /**
@@ -200,9 +192,22 @@ function cmp2($a, $b)
  * @param array $arrayAOrdenar
  */
 function ordenarArray($arrayAOrdenar){
-    uasort($arrayAOrdenar, 'cmp2');
     uasort($arrayAOrdenar, 'cmp');
     print_r($arrayAOrdenar);
+}
+
+/**
+ * valida si el nombre es correcto
+ * @param string $usuario
+ * @return boolean
+ */
+function validarNombre($usuario){
+    /* boolean $resultado */
+    $resultado = false;
+    if ($usuario == "0"){
+        $resultado = true;
+    }
+    return($resultado);
 }
 
 /* ... COMPLETAR ... */
@@ -246,30 +251,78 @@ $indicePartidaGanada = 0;
             //Jugar con palabra elegida
             do{
                 echo "Ingrese su nombre: ";
-                $nombreJugador = validarJugador();
-            } while ($nombreJugador == "Nombre no valido");
-            $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-            $palabraParaJugar = $arregloPalabras [($numeroDeIngreso - 1)];
-            $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
-            $arregloPartidas [($maximoPartidas + 1)] = $partida;
+                $nombreJugador = solicitarJugador();
+                $nombreValido = validarNombre($nombreJugador);
+                echo "\n";
+                if ($nombreValido){
+                    echo "*********** \n";
+                    echo "El usuario ingresado fue incorrecto! \n";
+                    echo "Recuerda que no puede contener \n";
+                    echo "numeros en el primer digito... \n";
+                    echo "*********** \n";
+                }
+            } while ($nombreValido);
+
+            do{
+                $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+                $palabraParaJugar = $arregloPalabras[($numeroDeIngreso - 1)];
+                $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
+                if($palabraUtilizada){
+                    echo "\nUsted ya jugó con la palabra " .$palabraParaJugar. ". Por favor, elija otra.\n";
+                }
+            } while($palabraUtilizada);
+            $partida = jugarWordix($palabraParaJugar, $nombreJugador);
+            $arregloPartidas [($maximoPartidas)] = $partida;
             $maximoPartidas = count($arregloPartidas);
+
+            //OTRA OPCION, MISMO RESULTADO
+
+            /* -------------------DESDE ACA-----------------
+            $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+            $palabraParaJugar = $arregloPalabras[($numeroDeIngreso - 1)];
+            $palabraUtilizada = elegirOtraPalabra(strtolower($nombreJugador), $palabraParaJugar, $arregloPartidas);
+
+            -----------------HASTA ACA, CODIGO VIEJO---------
+
+            while($palabraUtilizada){
+                echo "\nUsted ya jugó con la palabra " .$palabraParaJugar. ". Por favor, elija otra.\n";
+                $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+                $palabraParaJugar = $arregloPalabras[($numeroDeIngreso - 1)];
+                $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
+            }  
+            $partida = jugarWordix($palabraParaJugar, $nombreJugador);
+            $arregloPartidas [($maximoPartidas)] = $partida;
+            $maximoPartidas = count($arregloPartidas);
+            }
+
+            */
+            //$partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
+            //$arregloPartidas [($maximoPartidas)] = $partida;
+            //$maximoPartidas = count($arregloPartidas);
             break;
         case 2: 
             //Jugar con palabra aleatoria. array_rand() obtiene un elemento de un array de forma aleatoria
             do{
                 echo "Ingrese su nombre: ";
-                $nombreJugador = validarJugador();
+                $nombreJugador = solicitarJugador();
             } while ($nombreJugador == "Nombre no valido");
             $palabraParaJugar =  $arregloPalabras[array_rand($arregloPalabras)];
-            //funcion parcial para saber si el mismo jugador no jugo la palabra
-            $partida = jugarWordix($palabraParaJugar, strtolower($nombreJugador));
-            $arregloPartidas [($maximoPartidas + 1)] = $partida;
+            $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
+            while($palabraUtilizada){
+                echo "\nUsted ya jugó con la palabra " .$palabraParaJugar. ". Por favor, elija otra.\n";
+                $numeroDeIngreso = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+                $palabraParaJugar = $arregloPalabras [array_rand($arregloPalabras)];
+                $palabraUtilizada = elegirOtraPalabra($nombreJugador, $palabraParaJugar, $arregloPartidas);
+            }
+            $partida = jugarWordix($palabraParaJugar, $nombreJugador);
+            $arregloPartidas[$maximoPartidas] = $partida;
             $maximoPartidas = count($arregloPartidas);
             break;
         case 3: 
             //Mostrar una partida
             $numeroDeIngreso = solicitarNumeroEntre($minimoPartidas, $maximoPartidas);
-            mostrarPartida($arregloPartidas[$numeroDeIngreso], $numeroDeIngreso);
+            $indicePartida = $numeroDeIngreso - 1;
+            mostrarPartida($arregloPartidas[$indicePartida], $numeroDeIngreso);
 
             break;
         case 4:
@@ -277,10 +330,16 @@ $indicePartidaGanada = 0;
             echo "Ingrese el nombre del jugador: ";
             $jugadorBuscado = trim(fgets(STDIN));
             $indicePartidaGanada = primerPartidaGanada (strtolower($jugadorBuscado), $arregloPartidas);
+            $existeJugador = existeJugador($arregloPartidas, $jugadorBuscado);
+
             if ($indicePartidaGanada != -1) {
                 mostrarPartida($arregloPartidas[$indicePartidaGanada], $indicePartidaGanada);
-            } else {
-                echo "El jugador " .$jugadorBuscado. " no ganó ninguna partida o no existe el jugador.";
+            }
+            if(!$existeJugador){
+                echo "\nEl jugador " .$jugadorBuscado. " no existe.\n";
+            }
+            if($indicePartidaGanada == -1 && $existeJugador) {
+                echo "\nEl jugador " .$jugadorBuscado. " no ganó ninguna partida.\n";
                 }
             break;
         case 5:
@@ -294,6 +353,12 @@ $indicePartidaGanada = 0;
         case 7:
             //Agregar una palabra
             $nuevaPalabra = leerPalabra5Letras();
+            $existePalabra = existePalabra($arregloPalabras, $nuevaPalabra);
+            while($existePalabra){
+                echo "\nLa palabra ya existe! Por favor ingrese otra.\n";
+                $nuevaPalabra = leerPalabra5Letras();
+                $existePalabra = existePalabra($arregloPalabras, $nuevaPalabra);
+            }
             $arregloPalabras = agregarPalabra($arregloPalabras, $nuevaPalabra);
             $maximoPalabras = count($arregloPalabras);
             echo "\nse agrego la palabra exitosamente!\n ";

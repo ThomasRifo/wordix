@@ -414,6 +414,66 @@ function primerPartidaGanada ($usuario, $partidasGuardadas) {
     }
 
 /**
+ * Verifica si la palabra que se ingresa ya existe dentro de la colección de palabras
+ * @param array $coleccionPalabras
+ * @param string $palabraNueva
+ * @return boolean
+ */
+function existePalabra($coleccionPalabras, $palabraNueva){
+    $i = 0;
+    $existePalabra = false;
+    $indiceMaximo = count($coleccionPalabras) - 1;
+    while($i < $indiceMaximo && $coleccionPalabras[$i] != $palabraNueva){
+        $i = $i + 1;
+     }
+     if ($coleccionPalabras[$i] == $palabraNueva){
+        $existePalabra = true;
+     }
+     
+     return $existePalabra;
+}
+
+/**
+ * Verifica si el jugador dado, existe dentro de la coleccion de partidas
+ * @param array $arrayJugadores
+ * @param string $jugador
+ * @return boolean
+ */
+function existeJugador($arrayJugadores, $jugador){
+    $i = 0;
+    $existeJugador = false;
+    $indiceMaximo = count($arrayJugadores) - 1;
+    while($i < $indiceMaximo && $arrayJugadores[$i]["jugador"]!= $jugador){
+        $i = $i + 1;
+     }
+     if ($arrayJugadores[$i]["jugador"] == $jugador){
+        $existeJugador = true;
+     }
+     
+     return $existeJugador;
+}
+
+/**
+ * Verifica si el usuario ya jugó con esa palabra
+ * @param string $usuario
+ * @param string $palabra
+ * @param array $partidas
+ */
+function elegirOtraPalabra($usuario, $palabra, $partidas){
+    $i = 0;
+    $palabraUtilizada = false;
+    $indiceMaximo = count($partidas) - 1;
+    while($i < $indiceMaximo && $partidas[$i]["jugador"] != $usuario && $partidas[$i]["palabraWordix"] != $palabra){
+        $i = $i + 1;
+    }
+    if($partidas[$i]["jugador"] == $usuario && $partidas[$i]["palabraWordix"] == $palabra){
+        $palabraUtilizada = true;
+    }
+
+    return $palabraUtilizada;
+}
+
+/**
  * Dada una palabra, la agrega a la colección de palabras y retorna la colección actualizada
  * @param array $coleccionPalabras
  * @param string $palabraNueva
