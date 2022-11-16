@@ -331,14 +331,29 @@ function esIntentoGanado($estructuraPalabraIntento)
 /**
  * Según la cantidad de intentos realizados, devuelve el correspondiente puntaje
  * @param int $intentos
+ * @param string $cadenaPalabra
  * @return int 
  */
-function obtenerPuntajeWordix($intentos) {
-    /* */
+function obtenerPuntajeWordix($intentos,$cadenaPalabra) {
+    //int $i, $n, $letraEnNumASCII
     if($intentos != 0){
         for($i = 6; $i >= $intentos; $i--){
             $puntaje = 7 - $i;
             //if()
+        }
+        for ($n = 0; $n<strlen($cadenaPalabra); $n++){
+            $letraEnNumASCII = ord($cadenaPalabra[$n]);
+            if ($letraEnNumASCII==78 || $letraEnNumASCII>=80 && $letraEnNumASCII<=84 || $letraEnNumASCII>=86 && $letraEnNumASCII<=90){
+                //Letra posterior a M y distinta a a las vocales
+                $puntaje = $puntaje + 3;
+            } elseif ($letraEnNumASCII==65 || $letraEnNumASCII==69 || $letraEnNumASCII==73 || $letraEnNumASCII==79 || $letraEnNumASCII==85) {
+                //Vocal
+                $puntaje = $puntaje + 1;
+            } else {
+                //Letra anterior a M inclusive y distinta a las vocales
+                $puntaje = $puntaje + 2;
+            }
+
         }
     } else {
         $puntaje = 0;
@@ -378,7 +393,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix($nroIntento);
+        $puntaje = obtenerPuntajeWordix($nroIntento,$palabraWordix);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
     } else {
         $nroIntento = 0; //reset intento
@@ -403,6 +418,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * @return int $numeroPartida
  */
 function primerPartidaGanada ($usuario, $partidasGuardadas) {
+    //int $partidasGuardadas
     foreach ($partidasGuardadas as $numeroPartida => $partida) {
             if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
                 return $numeroPartida;
@@ -460,18 +476,17 @@ function existeJugador($arrayJugadores, $jugador){
  * @param array $partidas
  */
 function elegirOtraPalabra($usuario, $palabra, $partidas){
-    $i = 0;
     $palabraUtilizada = false;
-    $indiceMaximo = count($partidas) - 1;
-    while($i < $indiceMaximo && $partidas[$i]["jugador"] != $usuario && $partidas[$i]["palabraWordix"] != $palabra){
-        $i = $i + 1;
+    foreach ($partidas as $numeroPartida => $datos) {
+        if ($usuario == $datos["jugador"] && $datos["palabraWordix"] == $palabra) {
+            $palabraUtilizada = true;
+            return $palabraUtilizada;
+        }
     }
-    if($partidas[$i]["jugador"] == $usuario && $partidas[$i]["palabraWordix"] == $palabra){
-        $palabraUtilizada = true;
-    }
-
     return $palabraUtilizada;
 }
+
+
 
 /**
  * Dada una palabra, la agrega a la colección de palabras y retorna la colección actualizada
