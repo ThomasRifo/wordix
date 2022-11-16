@@ -126,11 +126,73 @@ function mostrarPartida($partida, $partidaNumero){
  * @param string $nombreDelJugador
  * @return array
  */
-function resumenDelugador($nombreDelJugador, $coleccionPartidas){
+/**
+ * retorna el resumen del jugador
+ * @param string $usuario
+ */
+function resumenJugador($usuario, $partidas){
+    $arregloResumen = [];
+$arregloResumen ["jugador"] = $usuario;
+$arregloResumen ["partidas"] = 0;
+$arregloResumen ["puntaje"] = 0;
+$arregloResumen ["victorias"] = 0;
+$arregloResumen ["intento1"] = 0;
+$arregloResumen ["intento2"] = 0;
+$arregloResumen ["intento3"] = 0;
+$arregloResumen ["intento4"] = 0;
+$arregloResumen ["intento5"] = 0;
+$arregloResumen ["intento6"] = 0;
+foreach ($partidas as $indicePartida => $infoPartida) {
+    if ($usuario == $infoPartida["jugador"]) {
+        $arregloResumen ["partidas"] += 1;
+        $arregloResumen["puntaje"] += $infoPartida["puntaje"];
+        if ($infoPartida["puntaje"] >0) {
+            $arregloResumen["victorias"] += 1;
+        }
+        switch ($infoPartida["intentos"]) {
+            case 1:
+                $arregloResumen["intento1"] += 1;
+                break;
+
+            case 2:
+                $arregloResumen["intento2"] += 1;
+                break;
+            case 3:
+                $arregloResumen["intento3"] += 1;
+                break;
+            case 4:
+                $arregloResumen["intento4"] += 1;
+                break;
+            case 5:
+                $arregloResumen["intento5"] += 1;
+                break;
+            case 6:
+                $arregloResumen["intento6"] += 1;
+                break;
+
+        }
+    }
+}
+$porcentaje = $arregloResumen["victorias"]*100 / $arregloResumen["partidas"];
+
+    echo "\n***************************************************\n";
+    echo "Jugador: " . $usuario . "\n";
+    echo "Partidas: " .$arregloResumen ["partidas"]. "\n";
+    echo "Puntaje Total: " .$arregloResumen ["puntaje"]. "\n";
+    echo "Victorias: " .$arregloResumen ["victorias"]. "\n";
+    echo "Porcentaje Victorias: " .round($porcentaje,2). "%\n";
+    echo "Adivinadas: \n";
+    echo "      Intento 1: " .$arregloResumen["intento1"]. "\n";
+    echo "      Intento 2: " .$arregloResumen["intento2"]. "\n";
+    echo "      Intento 3: " .$arregloResumen["intento3"]. "\n";
+    echo "      Intento 4: " .$arregloResumen["intento4"]. "\n";
+    echo "      Intento 5: " .$arregloResumen["intento5"]. "\n";
+    echo "      Intento 6: " .$arregloResumen["intento6"]. "\n";
+    echo "***************************************************\n";
+}
     
 /* ... COMPLETAR ... */
     
-}
 
 /**
  * Solicita un nombre al usuario y lo retorna en minusculas,
@@ -344,7 +406,14 @@ $indicePartidaGanada = 0;
             break;
         case 5:
             //Mostrar resumen de un jugador
-            
+            echo "Ingrese el nombre del jugador: ";
+            $nombreJugador = trim(fgets(STDIN));
+            $existeJugador = existeJugador($arregloPartidas, $nombreJugador);
+            if ($existeJugador) {
+            resumenJugador($nombreJugador, $arregloPartidas);
+            } else {
+                echo "\nNo existe el jugador\n";
+            }
             break;
         case 6:
             //Mostrar listado de partidas ordenadas por jugador y palabra
