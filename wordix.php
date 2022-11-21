@@ -339,7 +339,6 @@ function obtenerPuntajeWordix($intentos,$cadenaPalabra) {
     if($intentos != 0){
         for($i = 6; $i >= $intentos; $i--){
             $puntaje = 7 - $i;
-            //if()
         }
         for ($n = 0; $n<strlen($cadenaPalabra); $n++){
             $letraEnNumASCII = ord($cadenaPalabra[$n]);
@@ -415,19 +414,21 @@ function jugarWordix($palabraWordix, $nombreUsuario)
  * Dado un jugador, retorna el índice de su primera partida ganada guardada en el arreglo. Sino retorna -1
  * @param string $usuario
  * @param array $coleccionPartidas
+ * @param int $indice
  * @return int $numeroPartida
  */
-function primerPartidaGanada ($usuario, $partidasGuardadas) {
-    //int $partidasGuardadas
-    foreach ($partidasGuardadas as $numeroPartida => $partida) {
-            if ($usuario == $partida["jugador"] && $partida["puntaje"] != 0) {
-                return $numeroPartida;
-            } else {
-                $numeroPartida = -1;
-            }
-        }
-        return $numeroPartida;
+function primerPartidaGanada ($usuario, $partidasGuardadas, $n) {
+    //int $i, $indice
+    $indice = -1;
+    $i = 0;
+    while ($i<$n && ($usuario != $partidasGuardadas[$i]["jugador"] || $partidasGuardadas[$i]["puntaje"] == 0)) {
+        $i++;
     }
+    if ($i<$n) {
+        $indice = $i;
+    } 
+    return $indice;
+}
 
 /**
  * Verifica si la palabra que se ingresa ya existe dentro de la colección de palabras
@@ -475,13 +476,15 @@ function existeJugador($arrayJugadores, $jugador){
  * @param string $palabra
  * @param array $partidas
  */
-function elegirOtraPalabra($usuario, $palabra, $partidas){
+function elegirOtraPalabra($usuario, $palabra, $partidas, $n){
+// string $palabraUtilizada, int $i
     $palabraUtilizada = false;
-    foreach ($partidas as $numeroPartida => $datos) {
-        if ($usuario == $datos["jugador"] && $datos["palabraWordix"] == $palabra) {
-            $palabraUtilizada = true;
-            return $palabraUtilizada;
-        }
+    $i = 0;
+    while ($i<$n && ($usuario != $partidas[$i]["jugador"] || $partidas[$i]["palabraWordix"] != $palabra)) {
+        $i++;
+    }
+    if ($i<$n) {
+        $palabraUtilizada = true;
     }
     return $palabraUtilizada;
 }
